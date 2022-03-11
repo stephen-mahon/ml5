@@ -28,7 +28,7 @@ function imageReady() {
 
 function setup() {
   createCanvas(640, 480);
-  bear = createImg('images/bear.jpg', imageReady)
+  bear = createImg('images/moose.jpg', imageReady)
   bear.hide();
   background(0);
   image(bear, 0, 0);
