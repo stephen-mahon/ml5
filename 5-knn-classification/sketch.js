@@ -49,6 +49,8 @@ function keyPressed() {
   } else if (key === "r") {
     knn.addExample(logits, "right");
     console.log("right");
+  } else if (key === "s") {
+    knn.save("model.json");
   }
   
 }
