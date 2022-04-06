@@ -21,8 +21,8 @@ function setup() {
 }
 
 function keyPressed() {
-  state = "training";
   if (key == 't') {
+    state = "training";
     console.log("starting training:")
     model.normalizeData();
     let options = {
@@ -63,14 +63,21 @@ function mousePressed(){
     textAlign(CENTER, CENTER);
     text(targetLabel, mouseX, mouseY);
   } else if (state == "prediction") {
-    model.classify(inouts);
+    model.classify(inputs, gotResults);
   }
 }
 
 function gotResults(error, results) {
   if (error) {
-    console.log(error);
+    console.error(error);
     return;
   }
   console.log(results);
+  stroke(0);
+  fill(0,0,255,100);
+  ellipse(mouseX, mouseY, 24);
+  fill(0);
+  noStroke();
+  textAlign(CENTER, CENTER);
+  text(results[0].label, mouseX, mouseY);
 }
