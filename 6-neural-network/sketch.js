@@ -1,6 +1,8 @@
-// 1. Collect training data
-// 2. Train model
-// 3. Prediction
+// 1. Collect the training data
+// (save data)
+// 2. Train the model
+// (save model)
+// 3. Prediction/Inference
 
 let model;
 let targetLabel = 'C';
@@ -14,9 +16,11 @@ function setup() {
     inputs: ['x', 'y'],
     outputs: ['label'],
     task: 'classification',
-    debug: 'true'
+    debug: 'true',
+    //learningRate: 0.01
   };
   model = ml5.neuralNetwork(options);
+  //model.loadData('mouse-labels.json')
   background(255);
 }
 
@@ -29,6 +33,8 @@ function keyPressed() {
       epoch: 200
     };
     model.train(options, whileTraining, finishedTraining);
+  } else if (key == 's') {
+    model.saveData("mouse-labels")
   } else {
     targetLabel = key.toUpperCase();
   }
