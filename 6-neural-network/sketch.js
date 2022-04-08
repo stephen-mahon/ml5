@@ -20,8 +20,31 @@ function setup() {
     //learningRate: 0.01
   };
   model = ml5.neuralNetwork(options);
-  //model.loadData('mouse-labels.json')
+  model.loadData('mouse-labels.json', dataLoaded)
   background(255);
+}
+
+function dataLoaded() {
+  console.log(model.data);
+  let data = model.data.data.raw;
+  for (let i = 0; i < data.Length; i++) {
+    let inputs = data[i].xs;
+    let target = data[i].ys;
+    stroke(0);
+    noFill();
+    ellipse(inputs.x, inputs.y, 24);
+    fill(0);
+    noStroke();
+    textAlign(CENTER, CENTER);
+    text(target.label, inputs.x, inputs.y);
+  }
+  state = "training";
+  console.log("starting training:")
+  model.normalizeData();
+  let options = {
+    epoch: 200
+  };
+  model.train(options, whileTraining, finishedTraining);
 }
 
 function keyPressed() {
